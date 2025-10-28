@@ -1,7 +1,7 @@
 #
 #  Import LIBRARIES
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from logger import logger  # type: ignore
 
 #  Import FILES
@@ -11,6 +11,15 @@ from logger import logger  # type: ignore
 app: FastAPI = FastAPI()
 
 logger.info(msg="Starting API...")
+
+
+@app.middleware(middleware_type="http")
+async def log_middleware(request: Request, call_next):
+    log_dict: dict[str, str] = {"url": request.url.path, "method": request.method}
+    logger.info(msg=log_dict)
+
+    response = await call_next(request)
+    return response
 
 
 @app.get(path="/")
