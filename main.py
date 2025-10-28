@@ -2,7 +2,7 @@
 #  Import LIBRARIES
 import uvicorn
 from fastapi import FastAPI
-from logger import logger
+from logger import logger  # type: ignore
 
 #  Import FILES
 #  # #
