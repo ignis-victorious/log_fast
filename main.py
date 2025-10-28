@@ -2,6 +2,7 @@
 #  Import LIBRARIES
 import uvicorn
 from fastapi import FastAPI
+from logger import logger
 
 #  Import FILES
 #  # #
@@ -9,14 +10,18 @@ from fastapi import FastAPI
 
 app: FastAPI = FastAPI()
 
+logger.info(msg="Starting API...")
+
 
 @app.get(path="/")
 async def index() -> dict[str, str]:
+    logger.info(msg="Request to index page")
     return {"message": "Hello"}
 
 
 @app.get(path="/upload-videos")
 async def upload_videos() -> dict[str, str]:
+    logger.info(msg="Request to video-upload page")
     return {"message": "Video Uploaded"}
 
 
